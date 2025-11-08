@@ -39,12 +39,10 @@ Aplicativo mobile desenvolvido com **React Native** e **Expo**, voltado para div
 
 bash: 
  git clone https://github.com/juliaoliveiramarttins/InfoFatecCotia-1.git
-
+ cd InfoFatecCotia-1
+ 
 2.Instale as dependências:
-
-cd info-fatec-cotia
 npm install
 
 3.Inicie o app:
-
 npx expo start
