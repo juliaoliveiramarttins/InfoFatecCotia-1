@@ -37,8 +37,8 @@ Aplicativo mobile desenvolvido com **React Native** e **Expo**, voltado para div
 
 1. Clone o repositório:  
 
-bash
-git clone https://github.com/seu-usuario/info-fatec-cotia.git
+bash: 
+ git clone https://github.com/juliaoliveiramarttins/InfoFatecCotia-1.git
 
 2.Instale as dependências:
 
