@@ -35,7 +35,7 @@ Aplicativo mobile desenvolvido com **React Native** e **Expo**, voltado para div
 
 ## 🚀 Como Rodar
 
-1. Clone o repositório:  
+1.Clone o repositório:  
 
 bash: 
  git clone https://github.com/juliaoliveiramarttins/InfoFatecCotia-1.git
