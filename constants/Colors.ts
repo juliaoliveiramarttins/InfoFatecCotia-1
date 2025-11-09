@@ -1,6 +1,6 @@
 export const Colors = {
   fatec: {
-    red: "#E31E24",
+    red: "#b00208ff",
     darkRed: "#B71C1C",
     black: "#1A1A1A",
     white: "#FFFFFF",

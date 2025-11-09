@@ -1,19 +1,22 @@
-import { View, Text, StyleSheet, ScrollView, Pressable, Linking } from 'react-native';
+//CULTURA
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Colors } from '@/constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
 
 type CulturalSpotProps = {
   name: string;
   description: string;
   type: string;
-  icon: string;
+  iconName: any;
 };
 
-function CulturalSpot({ name, description, type, icon }: CulturalSpotProps) {
+function CulturalSpot({ name, description, type, iconName }: CulturalSpotProps) {
   return (
     <View style={styles.spotCard}>
+      <View/>
       <View style={styles.spotHeader}>
         <View style={styles.spotIconContainer}>
-          <Text style={styles.spotIcon}>{icon}</Text>
+          <Ionicons name={iconName} size={24} color="#FFFFFF" />
         </View>
         <View style={styles.spotInfo}>
           <Text style={styles.spotType}>{type}</Text>
@@ -29,19 +32,23 @@ type EventCardProps = {
   title: string;
   date: string;
   location: string;
-  icon: string;
+  iconName: any;
 };
 
-function EventCard({ title, date, location, icon }: EventCardProps) {
+function EventCard({ title, date, location, iconName }: EventCardProps) {
   return (
     <View style={styles.eventCard}>
+      <View/>
       <View style={styles.eventIconCircle}>
-        <Text style={styles.eventIcon}>{icon}</Text>
+        <Ionicons name={iconName} size={24} color="#FFFFFF" />
       </View>
       <View style={styles.eventContent}>
         <Text style={styles.eventTitle}>{title}</Text>
         <Text style={styles.eventDate}>{date}</Text>
-        <Text style={styles.eventLocation}>📍 {location}</Text>
+        <View style={styles.locationContainer}>
+          <Ionicons name="location" size={14} color="#1a68d5ff" />
+          <Text style={styles.eventLocation}>{location}</Text>
+        </View>
       </View>
     </View>
   );
@@ -50,33 +57,26 @@ function EventCard({ title, date, location, icon }: EventCardProps) {
 export default function Cultura() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Cultura</Text>
-        <Text style={styles.headerSubtitle}>
-          Eventos culturais, projetos acadêmicos e atividades artísticas
-        </Text>
-      </View>
-
       <View style={styles.content}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Eventos Acadêmicos FATEC</Text>
           <EventCard
             title="Semana de Tecnologia"
-            date="20-24 de Novembro, 2025"
+            date="15-19 de Março, 2025"
             location="FATEC Cotia - Auditório"
-            icon="💻"
+            iconName="laptop"
           />
           <EventCard
             title="Mostra Cultural"
-            date="5 de Dezembro, 2025"
+            date="28 de Abril, 2025"
             location="FATEC Cotia"
-            icon="🎨"
+            iconName="color-palette"
           />
           <EventCard
             title="Palestras Tech"
             date="Toda quarta-feira às 19h"
             location="FATEC Cotia - Online"
-            icon="🎤"
+            iconName="mic"
           />
         </View>
 
@@ -86,19 +86,19 @@ export default function Cultura() {
             name="Atlética FATEC Cotia"
             type="Atividades Contínuas"
             description="Organização de campeonatos e eventos esportivos"
-            icon="⚽"
+            iconName="football"
           />
           <CulturalSpot
             name="Clube de Leitura FATEC"
             type="Grupo de Estudos"
             description="Encontros para discussão de livros e literatura"
-            icon="📖"
+            iconName="book"
           />
           <CulturalSpot
             name="Eventos da Cantina"
             type="Confraternizações"
             description="Karaokê, rodas de samba e confraternizações"
-            icon="🎉"
+            iconName="musical-notes"
           />
         </View>
 
@@ -108,26 +108,29 @@ export default function Cultura() {
             name="Biblioteca Municipal"
             type="Biblioteca"
             description="Acervo público com espaço para estudos e pesquisas"
-            icon="📚"
+            iconName="library"
           />
           <CulturalSpot
             name="Teatro Municipal"
             type="Teatro"
             description="Apresentações de grupos locais e eventos culturais"
-            icon="🎪"
+            iconName="film"
           />
         </View>
 
         <View style={styles.infoBox}>
-          <Text style={styles.infoTitle}>💡 Participe!</Text>
+          <View/>
+          <View style={styles.infoHeader}>
+            <Ionicons name="bulb" size={20} color="#E31E24" />
+            <Text style={styles.infoTitle}>Participe!</Text>
+          </View>
           <Text style={styles.infoText}>
             Alunos da FATEC podem participar dos projetos culturais e eventos.
             Entre em contato com a coordenação para mais informações.
           </Text>
-          <Pressable 
-            style={styles.contactButton}
-          >
-            <Text style={styles.contactButtonText}>📧 Enviar E-mail</Text>
+          <Pressable style={styles.contactButton}>
+            <Ionicons name="mail" size={18} color="#FFFFFF" />
+            <Text style={styles.contactButtonText}>Enviar E-mail</Text>
           </Pressable>
         </View>
       </View>
@@ -138,27 +141,10 @@ export default function Cultura() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
-  },
-  header: {
-    backgroundColor: Colors.fatec.red,
-    padding: 24,
-    paddingTop: 32,
-    paddingBottom: 32,
-  },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.fatec.white,
-    marginBottom: 8,
-  },
-  headerSubtitle: {
-    fontSize: 15,
-    color: 'rgba(255, 255, 255, 0.9)',
-    lineHeight: 22,
+    backgroundColor: '#000000',
   },
   content: {
-    padding: 20,
+    padding: 24,
     paddingBottom: 40,
   },
   section: {
@@ -166,36 +152,36 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '700',
-    color: Colors.fatec.black,
+    fontWeight: '800',
+    color: '#FFFFFF',
     marginBottom: 16,
     letterSpacing: -0.5,
   },
+  
   eventCard: {
     flexDirection: 'row',
-    backgroundColor: Colors.fatec.white,
-    borderRadius: 16,
+    backgroundColor: 'rgba(64, 64, 64, 0.16)',
+    borderRadius: 18,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
     borderWidth: 1,
-    borderColor: '#F0F0F0',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    overflow: 'hidden',
+    elevation: 10,
   },
   eventIconCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#FFF3F3',
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: '#E31E24',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
-  },
-  eventIcon: {
-    fontSize: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    elevation: 6,
   },
   eventContent: {
     flex: 1,
@@ -203,48 +189,48 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: 16,
-    fontWeight: '700',
-    color: Colors.fatec.black,
+    fontWeight: '800',
+    color: '#FFFFFF',
     marginBottom: 4,
   },
   eventDate: {
     fontSize: 13,
-    color: Colors.fatec.red,
+    color: '#94A3B8',
     fontWeight: '600',
-    marginBottom: 2,
+    marginBottom: 4,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   eventLocation: {
     fontSize: 12,
-    color: '#666',
+    color: '#CBD5E1',
   },
   spotCard: {
-    backgroundColor: Colors.fatec.white,
-    borderRadius: 16,
+    backgroundColor: 'rgba(64, 64, 64, 0.16)',
+    borderRadius: 18,
     padding: 18,
     marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
     borderWidth: 1,
-    borderColor: '#F0F0F0',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    overflow: 'hidden',
+    elevation: 10,
   },
   spotHeader: {
     flexDirection: 'row',
     marginBottom: 12,
   },
   spotIconContainer: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: Colors.fatec.red,
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: '#2563EB',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
-  },
-  spotIcon: {
-    fontSize: 22,
+    marginRight: 14,
+    elevation: 6,
   },
   spotInfo: {
     flex: 1,
@@ -252,7 +238,7 @@ const styles = StyleSheet.create({
   },
   spotType: {
     fontSize: 11,
-    color: Colors.fatec.red,
+    color: '#94A3B8',
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -260,31 +246,43 @@ const styles = StyleSheet.create({
   },
   spotName: {
     fontSize: 16,
-    fontWeight: '700',
-    color: Colors.fatec.black,
+    fontWeight: '800',
+    color: '#FFFFFF',
   },
   spotDescription: {
     fontSize: 13,
-    color: '#666',
+    color: '#CBD5E1',
     lineHeight: 19,
   },
   infoBox: {
-    backgroundColor: '#FFF9E6',
-    borderRadius: 16,
+    backgroundColor: 'rgba(7, 7, 7, 0.08)',
+    borderRadius: 18,
     padding: 20,
     marginTop: 8,
     borderWidth: 1,
-    borderColor: '#FFE4A3',
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  
+  infoHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
   },
   infoTitle: {
     fontSize: 16,
-    fontWeight: '700',
-    color: Colors.fatec.black,
-    marginBottom: 8,
+    fontWeight: '800',
+    color: '#FFFFFF',
   },
   infoText: {
     fontSize: 14,
-    color: '#666',
+    color: '#CBD5E1',
     lineHeight: 20,
     marginBottom: 16,
   },
@@ -293,10 +291,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 14,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 8,
+    elevation: 6,
   },
   contactButtonText: {
     color: Colors.fatec.white,
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: '600',
   },
 });

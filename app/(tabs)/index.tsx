@@ -1,18 +1,18 @@
+//INICIO
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { Link } from 'expo-router';
 import { Colors } from '@/constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
 
 type CategoryCardProps = {
   title: string;
   description: string;
   href: string;
-  icon: string;
-  color?: string;
+  iconName: any;
+  color: string;
 };
 
-function CategoryCard({ title, description, href, icon, color }: CategoryCardProps) {
-  const cardColor = color || Colors.fatec.red;
-  
+function CategoryCard({ title, description, href, iconName, color }: CategoryCardProps) {
   return (
     <Link href={href as any} asChild>
       <Pressable 
@@ -21,18 +21,25 @@ function CategoryCard({ title, description, href, icon, color }: CategoryCardPro
           pressed && styles.cardPressed
         ]}
       >
-        <View style={styles.cardTop}>
-          <View style={[styles.iconCircle, { backgroundColor: cardColor }]}>
-            <Text style={styles.iconText}>{icon}</Text>
+        {/* Gradiente de brilho no topo */}
+        <View style={styles.cardGlow} />
+        
+        <View style={styles.cardContent}>
+          <View style={[styles.iconContainer, { backgroundColor: color }]}>
+            <Ionicons name={iconName} size={24} color="#FFFFFF" />
           </View>
-          <Text style={styles.cardTitle}>{title}</Text>
+          
+          <View style={styles.cardTextContainer}>
+            <Text style={styles.cardTitle}>{title}</Text>
+            <Text style={styles.cardDescription} numberOfLines={2}>
+              {description}
+            </Text>
+          </View>
+
           <View style={styles.arrowContainer}>
-            <Text style={styles.arrowIcon}>›</Text>
+            <Ionicons name="chevron-forward" size={24} color="rgba(255, 255, 255, 0.4)" />
           </View>
         </View>
-        <Text style={styles.cardDescription} numberOfLines={2}>
-          {description}
-        </Text>
       </Pressable>
     </Link>
   );
@@ -45,50 +52,67 @@ export default function Index() {
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Info Fatec Cotia</Text>
-          <Text style={styles.headerSubtitle}>Guia de informações sobre a faculdade e a cidade</Text>
-        </View>
-
         <View style={styles.content}>
-          <Text style={styles.sectionTitle}>Explore</Text>
-          
+          {/* Welcome Section */}
+          <View style={styles.welcomeSection}>
+            <Text style={styles.welcomeTitle}>Bem-vindo!</Text>
+            <Text style={styles.welcomeSubtitle}>
+              Explore tudo sobre a FATEC Cotia e a cidade.
+            </Text>
+          </View>
+
+          {/* Cards Grid */}
           <View style={styles.cardsContainer}>
             <CategoryCard
               title="Cultura"
               description="Arte, eventos e patrimônio cultural da região"
               href="/cultura"
-              icon="🎨"
-              color="#E31E24"
+              iconName="color-palette"
+              color="#9333EA"
             />
             <CategoryCard
               title="Educação"
               description="Informações acadêmicas e recursos de ensino"
               href="/educacao"
-              icon="📖"
-              color="#C62828"
+              iconName="book"
+              color="#2563EB"
             />
             <CategoryCard
               title="Empregos"
               description="Oportunidades de carreira e mercado de trabalho"
               href="/empregos"
-              icon="💼"
-              color="#1A1A1A"
+              iconName="briefcase"
+              color="#059669"
             />
             <CategoryCard
               title="Segurança"
               description="Orientações e contatos de emergência"
               href="/seguranca"
-              icon="🚨"
-              color="#B71C1C"
+              iconName="shield-checkmark"
+              color="#DC2626"
             />
+          </View>
+
+          {/* Stats Section */}
+          <View style={styles.statsContainer}>
+            <View style={styles.statCard}>
+              <Ionicons name="people" size={20} color="#E31E24" style={styles.statIcon} />
+              <Text style={styles.statNumber}>300+</Text>
+              <Text style={styles.statLabel}>Alunos</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Ionicons name="calendar" size={20} color="#E31E24" style={styles.statIcon} />
+              <Text style={styles.statNumber}>10+</Text>
+              <Text style={styles.statLabel}>Eventos/ano</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Ionicons name="ribbon" size={20} color="#E31E24" style={styles.statIcon} />
+              <Text style={styles.statNumber}>100%</Text>
+              <Text style={styles.statLabel}>Gratuito</Text>
+            </View>
           </View>
         </View>
 
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>FATEC Cotia</Text>
-          <Text style={styles.footerYear}>2025</Text>
-        </View>
       </ScrollView>
     </View>
   );
@@ -97,129 +121,124 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#000000',
   },
   scrollView: {
     flex: 1,
   },
-  header: {
-    backgroundColor: Colors.fatec.red,
-    paddingTop: 30,
-    paddingBottom: 40,
-    paddingHorizontal: 24,
-  },
-  headerTitle: {
-    fontSize: 38,
-    fontWeight: '800',
-    color: Colors.fatec.white,
-    marginBottom: 8,
-    letterSpacing: -1,
-  },
-  headerSubtitle: {
-    fontSize: 15,
-    color: 'rgba(255, 255, 255, 0.9)',
-    fontWeight: '400',
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-  },
-  locationIcon: {
-    fontSize: 14,
-    marginRight: 6,
-  },
-  locationText: {
-    fontSize: 13,
-    color: Colors.fatec.white,
-    fontWeight: '600',
-  },
   content: {
-    padding: 20,
+    padding: 24,
+    paddingTop: 24,
   },
-  sectionTitle: {
-    fontSize: 20,
+  welcomeSection: {
+    marginBottom: 25,
+    marginTop: 5,
+
+  },
+  welcomeTitle: {
+    fontSize: 30,
     fontWeight: '700',
-    color: Colors.fatec.black,
-    marginBottom: 16,
+    color: '#FFFFFF',
+    marginBottom: 8,
     letterSpacing: -0.5,
   },
+  welcomeSubtitle: {
+    fontSize: 16,
+    color: '#94A3B8',
+    lineHeight: 24,
+  },
   cardsContainer: {
-    gap: 16,
+    gap: 5,
+    marginBottom: 30,
   },
   card: {
-    backgroundColor: Colors.fatec.white,
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    borderRadius: 18,
     borderWidth: 1,
-    borderColor: '#F0F0F0',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  cardGlow: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 2,
+    backgroundColor: 'rgba(119, 119, 119, 0.3)',
   },
   cardPressed: {
-    opacity: 0.7,
+    opacity: 0.85,
     transform: [{ scale: 0.98 }],
   },
-  cardTop: {
+  cardContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 2
+    padding: 16,
   },
-  iconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+  iconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginRight: 14,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    elevation: 6,
   },
-  iconText: {
-    fontSize: 22,
+  cardTextContainer: {
+    flex: 1,
   },
   cardTitle: {
-    flex: 1,
-    fontSize: 17,
-    fontWeight: '700',
-    color: Colors.fatec.black,
-    letterSpacing: -0.3,
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    letterSpacing: -0.2,
   },
   cardDescription: {
-    fontSize: 13,
-    color: '#666',
-    lineHeight: 18,
-    paddingLeft: 56,
+    fontSize: 14,
+    color: '#CBD5E1',
+    lineHeight: 20,
   },
   arrowContainer: {
     marginLeft: 8,
   },
-  arrowIcon: {
-    fontSize: 24,
-    color: '#CCC',
-    fontWeight: 'bold',
+  statsContainer: {
+    flexDirection: 'row',
+    gap: 14,
   },
-  footer: {
+  statCard: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: 14,
+    padding: 16,
     alignItems: 'center',
-    paddingVertical: 32,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
   },
-  footerText: {
-    fontSize: 12,
+  statIcon: {
+    marginBottom: 8,
+  },
+  statNumber: {
+    fontSize: 18,
     fontWeight: '700',
-    color: Colors.fatec.black,
-    letterSpacing: 1,
+    color: '#FFFFFF',
+    marginBottom: 4,
   },
-  footerYear: {
-    fontSize: 11,
-    color: '#999',
-    marginTop: 4,
+  statLabel: {
+    fontSize: 10,
+    color: '#64748B',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    fontWeight: '600',
   },
+  
 });
