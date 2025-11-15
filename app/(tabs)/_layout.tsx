@@ -216,6 +216,19 @@ export default function TabsLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="sobremim"
+        options={{
+          headerShown: true,
+          headerTitle: headerTitleComponent('Sobre Mim'),
+          headerRight: renderHeaderRight,
+          tabBarLabel: 'Sobre',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="sparkles-outline" size={24} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
